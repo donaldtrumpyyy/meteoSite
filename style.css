@@ -9,21 +9,41 @@ h1 {
     color: whitesmoke;
 }
 
+h2 {
+    color: #c6c6c7;
+}
+
+p {
+    color: #a4a6a8;
+}
+
 button {
+    transition: 0.5s;
     padding: 10px;
     margin: 5px;
     margin-top: 15px;
     border-radius: 10px;
-    background-color: whitesmoke;
-    border-color: black;
-    color: black;
+    border: none;
+    background-color: #1a1c1db9;
+    color: whitesmoke;
 }
 
 button:hover {
+    transition: 0.5s;
     cursor: pointer;
+    background-color: whitesmoke;
+    color: #142634;
+}
+
+#meteoDiv {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 #informationsGIF {
     border-radius: 15px;
     transform: scale(0.5);
+    margin-top: -350px;
 }
