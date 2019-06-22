@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+    <html lang="en">
+<head>
+    <title>javaConsole Meteo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="javascript.js"></script>
+</head>
+<body>
+    <h1>javaConsole Meteo</h1>
+
+    <h2>Regardez la météo dans toute la France</h2>
+
+    <input name="Latitude" type="text" placeholder="Latitude" id="inputLatitude">
+    <input name="Longitude" type="text" placeholder="Longitude" id="inputLongitude">
+
+    <br />
+
+    <button onclick="onButtonClick()" id="button" class="meteoButton">See meteo</button>
+
+    <div id="errorDiv"></div>
+
+    <div id="meteoDiv"></div>
+
+    <div id="gifDiv"></div>
+</body>
+</html>
