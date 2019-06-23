@@ -18,6 +18,7 @@ function onButtonClick() {
     longitude.value = ''
 }
 
+
 function writeInformations(latitude, longitude) {
 
     const linkAPI = 'https://www.prevision-meteo.ch/services/json/lat=' + latitude + 'lng=' + longitude
@@ -39,6 +40,11 @@ function writeInformations(latitude, longitude) {
             document.getElementById('informationsElevation').remove()
             document.getElementById('informationsImage').remove()
             document.getElementById('informationsGIF').remove()
+
+            document.getElementById('informationsTomorrowDate').remove()
+            document.getElementById('informationsTomorrowCondition').remove()
+            document.getElementById('informationsTomorrowImage').remove()
+            document.getElementById('informationsTomorrowGIF').remove()
         }
         
         if(firstError != undefined) {
@@ -122,49 +128,116 @@ function writeInformations(latitude, longitude) {
             document.getElementById('meteoDiv').appendChild(labelHumidity)
             document.getElementById('meteoDiv').appendChild(labelElevation)
         
-            const image = document.createElement('img')
+            const IMG = document.createElement('img')
 
-            image.src = currentImage
-            image.style.cssFloat = 'center'
-            image.id = 'informationsImage'
+            IMG.src = currentImage
+            IMG.style.cssFloat = 'center'
+            IMG.id = 'informationsImage'
 
-            const gif = document.createElement('img')
+            const GIF = document.createElement('img')
 
             if(json.current_condition.condition_key === 'nuit-claire') {
-                gif.src = 'https://media.giphy.com/media/3ohze0k1Z43jsEJMCQ/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/3ohze0k1Z43jsEJMCQ/giphy.gif'
             }else if(json.current_condition.condition_key === 'pluie-moderee') {
-                gif.src = 'https://media.giphy.com/media/1ipRdxBacFXBjoov2f/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/1ipRdxBacFXBjoov2f/giphy.gif'
             }else if(json.current_condition.condition_key === 'eclaircies') {
-                gif.src = 'https://media.giphy.com/media/KV1s4kSJHaY3m/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/KV1s4kSJHaY3m/giphy.gif'
             }else if(json.current_condition.condition_key === 'fortement-nuageux') {
-                gif.src = 'https://media.giphy.com/media/5HK4TiiBeLSZq/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/5HK4TiiBeLSZq/giphy.gif'
             }else if(json.current_condition.condition_key === 'pluie-faible') {
-                gif.src = 'https://media.giphy.com/media/l2SqdlKgzWTH0pgK4/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/l2SqdlKgzWTH0pgK4/giphy.gif'
             }else if(json.current_condition.condition_key === 'faiblement-nuageux') {
-                gif.src = 'https://media.giphy.com/media/IxJ1Ch3cWrsRO/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/IxJ1Ch3cWrsRO/giphy.gif'
             }else if(json.current_condition.condition_key === 'nuit-nuageuse') {
-                gif.src = 'https://media.giphy.com/media/qbtSJYQgUIVgs/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/qbtSJYQgUIVgs/giphy.gif'
             }else if(json.current_condition.condition_key === 'developpement-nuageux') {
-                gif.src = 'https://media.giphy.com/media/dcJC4ypj9HuXC/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/dcJC4ypj9HuXC/giphy.gif'
             }else if(json.current_condition.condition_key === 'nuit-avec-developpement-nuageux') {
-                gif.src = 'https://media.giphy.com/media/l0HU7Cs5D0Gbo7G3S/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/l0HU7Cs5D0Gbo7G3S/giphy.gif'
             }else if(json.current_condition.condition_key === 'nuit-legerement-voilee') {
-                gif.src = 'https://media.giphy.com/media/13cbswY3dovmJq/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/13cbswY3dovmJq/giphy.gif'
             }else if(json.current_condition.condition_key === 'stratus-se-dissipant') {
-                gif.src = 'https://media.giphy.com/media/hL8a3mIQK8Ehy/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/hL8a3mIQK8Ehy/giphy.gif'
             }else if(json.current_condition.condition_key === 'nuit-avec-averses') {
-                gif.src = 'https://media.giphy.com/media/qHWAmPd3SWyY0/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/qHWAmPd3SWyY0/giphy.gif'
             }else if(json.current_condition.condition_key === 'ciel-voile') {
-                gif.src = 'https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif'
             }else if(json.current_condition.condition_key === 'ensoleille') {
-                gif.src = 'https://media.giphy.com/media/26hisNbqTHrCduoWQ/giphy.gif'
+                GIF.src = 'https://media.giphy.com/media/26hisNbqTHrCduoWQ/giphy.gif'
             }
 
-            gif.style.cssFloat = 'right'
-            gif.id = 'informationsGIF'
+            GIF.style.cssFloat = 'right'
+            GIF.id = 'informationsGIF'
         
-            document.getElementById('meteoDiv').appendChild(image)
-            document.getElementById('gifDiv').appendChild(gif)
+            document.getElementById('meteoDiv').appendChild(IMG)
+            document.getElementById('gifDiv').appendChild(GIF)
+
+
+
+            const tomorrowCondition = json.fcst_day_1.condition
+            const tomorrowImage = json.fcst_day_1.icon_big
+
+
+            const labelTomorrow = document.createElement('h2')
+
+            labelTomorrow.innerHTML = 'Demain (' + json.fcst_day_1.day_long + ')'
+            labelTomorrow.style.fontFamily = 'Arial'
+            labelTomorrow.style.textAlign = 'center'
+            labelTomorrow.id = 'informationsTomorrowDate'
+
+            const labelTomorrowCondition = document.createElement('p')
+
+            labelTomorrowCondition.innerHTML = 'Conditions : ' + tomorrowCondition
+            labelTomorrowCondition.style.fontFamily = 'Arial'
+            labelTomorrowCondition.style.textAlign = 'center'
+            labelTomorrowCondition.id = 'informationsTomorrowCondition'
+
+            document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrow)
+            document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrowCondition)
+
+            const tomorrowIMG = document.createElement('img')
+
+            tomorrowIMG.src = tomorrowImage
+            tomorrowIMG.style.cssFloat = 'center'
+            tomorrowIMG.id = 'informationsTomorrowImage'
+
+            const tomorrowGIF = document.createElement('img')
+
+            if(json.fcst_day_1.condition_key === 'nuit-claire') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/3ohze0k1Z43jsEJMCQ/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'pluie-moderee') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/1ipRdxBacFXBjoov2f/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'eclaircies') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/KV1s4kSJHaY3m/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'fortement-nuageux') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/5HK4TiiBeLSZq/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'pluie-faible') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/l2SqdlKgzWTH0pgK4/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'faiblement-nuageux') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/IxJ1Ch3cWrsRO/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'nuit-nuageuse') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/qbtSJYQgUIVgs/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'developpement-nuageux') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/dcJC4ypj9HuXC/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'nuit-avec-developpement-nuageux') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/l0HU7Cs5D0Gbo7G3S/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'nuit-legerement-voilee') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/13cbswY3dovmJq/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'stratus-se-dissipant') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/hL8a3mIQK8Ehy/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'nuit-avec-averses') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/qHWAmPd3SWyY0/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'ciel-voile') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/u01ioCe6G8URG/giphy.gif'
+            }else if(json.fcst_day_1.condition_key === 'ensoleille') {
+                tomorrowGIF.src = 'https://media.giphy.com/media/26hisNbqTHrCduoWQ/giphy.gif'
+            }
+
+            tomorrowGIF.style.cssFloat = 'right'
+            tomorrowGIF.id = 'informationsTomorrowGIF'
+
+            document.getElementById('meteoTomorrowDiv').appendChild(tomorrowIMG)
+            document.getElementById('gifTomorrowDiv').appendChild(tomorrowGIF)
         }else{
             const labelError = document.createElement('h2')
 

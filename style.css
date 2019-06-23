@@ -7,6 +7,12 @@ body {
 
 h1 {
     color: whitesmoke;
+    transform: scale(1.9);
+    padding: 1.75%;
+    margin-left: 30%;
+    margin-right: 30%;
+    animation-name: open;
+    animation-duration: 0.25s;
 }
 
 h2 {
@@ -15,6 +21,32 @@ h2 {
 
 p {
     color: #a4a6a8;
+}
+
+hr {
+    margin-left: 25%;
+    margin-right: 25%;
+    color: white;
+    animation-name: open;
+    animation-duration: 0.25s;
+}
+
+input {
+    transition: 0.5s;
+    padding: 8px;
+    border: none;
+    background-color: #8886869c;
+    color: whitesmoke;
+    margin-right: 25px;
+    margin-left: 25px;
+    border-radius: 3px;
+    animation-name: open;
+    animation-duration: 0.5s;
+}
+
+input:hover {
+    transition: 0.5s;
+    background-color: #222222;
 }
 
 button {
@@ -26,6 +58,8 @@ button {
     border: none;
     background-color: #1a1c1db9;
     color: whitesmoke;
+    animation-name: open;
+    animation-duration: 0.5s;
 }
 
 button:hover {
@@ -35,7 +69,19 @@ button:hover {
     color: #142634;
 }
 
+#description {
+    animation-name: open;
+    animation-duration: 0.3s;
+}
+
 #meteoDiv {
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#meteoTomorrowDiv {
     padding-top: 2%;
     padding-bottom: 2%;
     margin-left: 20%;
@@ -46,4 +92,38 @@ button:hover {
     border-radius: 15px;
     transform: scale(0.5);
     margin-top: -350px;
+}
+
+#informationsTomorrowGIF {
+    border-radius: 15px;
+    transform: scale(0.5);
+    margin-top: -250px;
+}
+
+
+@keyframes open {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    hr {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+
+    #informationsGIF {
+        visibility: hidden;
+    }
+
+
+    #informationsTomorrowGIF {
+        visibility: hidden;
+    }
 }
