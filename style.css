@@ -112,6 +112,10 @@ button:hover {
 }
 
 @media screen and (max-width: 1000px) {
+    h1 {
+        transform: scale(1.25);
+    }
+
     hr {
         margin-left: 10%;
         margin-right: 10%;
