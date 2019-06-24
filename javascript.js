@@ -4,6 +4,9 @@ function setup() {
             writeInformations(position.coords.latitude, position.coords.longitude)
         })
     }
+
+    console.log(window.innerHeight)
+    console.log(window.innerWidth)
 }
 
 setup()
@@ -34,6 +37,7 @@ function writeInformations(latitude, longitude) {
             document.getElementById('informationsConditions').remove()
             document.getElementById('informationsDate').remove()
             document.getElementById('informationsHour').remove()
+            document.getElementById('informationsTemperature').remove()
             document.getElementById('informationsWindSpeed').remove()
             document.getElementById('informationsWindDirection').remove()
             document.getElementById('informationsHumidity').remove()
@@ -43,6 +47,8 @@ function writeInformations(latitude, longitude) {
 
             document.getElementById('informationsTomorrowDate').remove()
             document.getElementById('informationsTomorrowCondition').remove()
+            document.getElementById('informationsTomorrowTemperatureMinimum').remove()
+            document.getElementById('informationsTomorrowTemperatureMaximum').remove()
             document.getElementById('informationsTomorrowImage').remove()
             document.getElementById('informationsTomorrowGIF').remove()
         }
@@ -55,6 +61,7 @@ function writeInformations(latitude, longitude) {
             const currentCondition = json.current_condition.condition
             const currentDate = json.current_condition.date
             const currentHour = json.current_condition.hour
+            const currentTemperature = json.current_condition.tmp
             const currentWindSpeed = json.current_condition.wnd_spd
             const currentWindDirection = json.current_condition.wnd_dir
             const currentHumidity = json.current_condition.humidity
@@ -90,6 +97,13 @@ function writeInformations(latitude, longitude) {
             labelHour.style.fontFamily = 'Arial'
             labelHour.style.textAlign = 'center'
             labelHour.id = 'informationsHour'
+
+            const labelTemperature = document.createElement('p')
+
+            labelTemperature.innerHTML = 'Température : ' + currentTemperature + ' °C'
+            labelTemperature.style.fontFamily = 'Arial'
+            labelTemperature.style.textAlign = 'center'
+            labelTemperature.id = 'informationsTemperature'
         
             const labelWindSpeed = document.createElement('p')
         
@@ -123,6 +137,7 @@ function writeInformations(latitude, longitude) {
             document.getElementById('meteoDiv').appendChild(labelConditions)
             document.getElementById('meteoDiv').appendChild(labelDate)
             document.getElementById('meteoDiv').appendChild(labelHour)
+            document.getElementById('meteoDiv').appendChild(labelTemperature)
             document.getElementById('meteoDiv').appendChild(labelWindSpeed)
             document.getElementById('meteoDiv').appendChild(labelWindDirection)
             document.getElementById('meteoDiv').appendChild(labelHumidity)
@@ -177,6 +192,8 @@ function writeInformations(latitude, longitude) {
 
 
             const tomorrowCondition = json.fcst_day_1.condition
+            const tomorrowTemperatureMinium = json.fcst_day_1.tmin
+            const tomorrowTemperatureMaximum = json.fcst_day_1.tmax
             const tomorrowImage = json.fcst_day_1.icon_big
 
 
@@ -194,8 +211,24 @@ function writeInformations(latitude, longitude) {
             labelTomorrowCondition.style.textAlign = 'center'
             labelTomorrowCondition.id = 'informationsTomorrowCondition'
 
+            const labelTomorrowTemperatureMinimum = document.createElement('p')
+
+            labelTomorrowTemperatureMinimum.innerHTML = 'Température minimum : ' + tomorrowTemperatureMinium + ' °C'
+            labelTomorrowTemperatureMinimum.style.fontFamily = 'Arial'
+            labelTomorrowTemperatureMinimum.style.textAlign = 'center'
+            labelTomorrowTemperatureMinimum.id = 'informationsTomorrowTemperatureMinimum'
+
+            const labelTomorrowTemperatureMaximum = document.createElement('p')
+
+            labelTomorrowTemperatureMaximum.innerHTML = 'Température maximum : ' + tomorrowTemperatureMaximum + ' °C'
+            labelTomorrowTemperatureMaximum.style.fontFamily = 'Arial'
+            labelTomorrowTemperatureMaximum.style.textAlign = 'center'
+            labelTomorrowTemperatureMaximum.id = 'informationsTomorrowTemperatureMaximum'
+
             document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrow)
             document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrowCondition)
+            document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrowTemperatureMinimum)
+            document.getElementById('meteoTomorrowDiv').appendChild(labelTomorrowTemperatureMaximum)
 
             const tomorrowIMG = document.createElement('img')
 
@@ -240,6 +273,11 @@ function writeInformations(latitude, longitude) {
 
             document.getElementById('meteoTomorrowDiv').appendChild(tomorrowIMG)
             document.getElementById('gifTomorrowDiv').appendChild(tomorrowGIF)
+
+
+            if(window.innerHeight < 1200) {
+                document.getElementsByTagName('h1').innerHTML = 'jc Meteo'
+            }
         }else{
             const labelError = document.createElement('h2')
 
@@ -260,7 +298,7 @@ function getRequest(url, callback) {
 
     request.addEventListener('load', function (response) {
         if(request.status >= 200 && request.status < 400) {
-			callback(request.responseText)
+            callback(request.responseText)
 		}else{
             const labelError = document.createElement('p')
 
@@ -269,6 +307,22 @@ function getRequest(url, callback) {
             labelError.style.color = 'whitesmoke'
 
             document.getElementById('meteoDiv').appendChild(labelError)
+        }
+    })
+
+    request.addEventListener('loadstart', function (response) {
+        const loadIMG = document.createElement('img')
+
+        loadIMG.src = '/loading.gif'
+
+        document.getElementById('loadingDiv').appendChild(loadIMG)
+    })
+
+    request.addEventListener('loadend', function (response) {
+        const loadIMG = document.getElementById('loadingDiv').firstChild
+
+        if(typeof loadIMG !== undefined) {
+            loadIMG.remove()
         }
     })
 

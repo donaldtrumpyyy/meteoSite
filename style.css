@@ -76,6 +76,10 @@ button:hover {
     animation-duration: 0.3s;
 }
 
+#loadingDiv {
+    margin-top: 50px;
+}
+
 #meteoDiv {
     padding-top: 2%;
     padding-bottom: 2%;
@@ -93,13 +97,13 @@ button:hover {
 #informationsGIF {
     border-radius: 15px;
     transform: scale(0.5);
-    margin-top: -350px;
+    margin-top: -495px;
 }
 
 #informationsTomorrowGIF {
     border-radius: 15px;
     transform: scale(0.5);
-    margin-top: -250px;
+    margin-top: -370px;
 }
 
 
@@ -113,7 +117,7 @@ button:hover {
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
     h1 {
         transition: 0.5s;
         transform: scale(1.05);
@@ -125,15 +129,38 @@ button:hover {
         margin-right: 10%;
     }
 
+    .title {
+        visibility: hidden;
+    }
+    
+    .title:after {
+        visibility: visible;
+        content: 'jC Meteo';
+        margin-left: -270px;
+    }
+
+    input:hover {
+        background-color: #8886869c;
+    }
+
 
     #informationsGIF {
         transition: 0.5s;
         transform: scale(0);
     }
 
-
     #informationsTomorrowGIF {
         transition: 0.5s;
         transform: scale(0);
     }
+}
+
+@media screen and (max-width: 800px) {
+
+    .title:after {
+        visibility: visible;
+        content: 'jC Meteo';
+        margin-left: -90px;
+    }
+
 }

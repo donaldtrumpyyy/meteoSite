@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="en">
+    <html lang="fr">
 <head>
     <title>javaConsole Meteo</title>
     <meta charset="UTF-8">
@@ -10,10 +10,10 @@
     <script src="javascript.js"></script>
 </head>
 <body>
-    <h1>javaConsole Meteo</h1>
+    <h1 class="title">javaConsole Meteo</h1>
 
     <h2 id="description">Regardez la météo dans toute la France</h2>
-
+    
     <div>
         <input name="Latitude" type="text" placeholder="Latitude" id="inputLatitude">
         <input name="Longitude" type="text" placeholder="Longitude" id="inputLongitude">
@@ -23,7 +23,7 @@
         <button onclick="onButtonClick()" id="button" class="meteoButton">See meteo</button>
     </div>
 
-    <div id="acceptLocalisationDiv"></div>
+    <div id="loadingDiv"></div>
 
     <div id="errorDiv"></div>
 
