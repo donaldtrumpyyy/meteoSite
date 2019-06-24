@@ -172,6 +172,8 @@ function writeInformations(latitude, longitude) {
             document.getElementById('meteoDiv').appendChild(IMG)
             document.getElementById('gifDiv').appendChild(GIF)
 
+            document.getElementById('hrDiv').appendChild(document.createElement('hr'))
+
 
 
             const tomorrowCondition = json.fcst_day_1.condition
