@@ -1,12 +1,15 @@
 function setup() {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            writeInformations(position.coords.latitude, position.coords.longitude)
+            var latitudeCookie = document.cookie
+            var longitudeCookie = document.cookie
+
+            latitudeCookie = 'latitude=' + position.coords.latitude
+            longitudeCookie = 'longitude=' + position.coords.longitude
+
+            writeInformations(latitudeCookie, longitudeCookie)
         })
     }
-
-    console.log(window.innerHeight)
-    console.log(window.innerWidth)
 }
 
 setup()
@@ -329,7 +332,7 @@ function getRequest(url, callback) {
     request.addEventListener('error', function (response) {
         const labelError = document.createElement('h2')
 
-        labelError.innerHTML = 'ERROR NETWORK'
+        labelError.innerHTML = 'Erreur : Mauvaise connection avec internet. Veuillez rafraichir la page.'
         labelError.style.textAlign = 'center'
         labelError.style.color = 'whitesmoke'
 
