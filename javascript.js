@@ -1,13 +1,7 @@
 function setup() {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            var latitudeCookie = document.cookie
-            var longitudeCookie = document.cookie
-
-            latitudeCookie = 'latitude=' + position.coords.latitude
-            longitudeCookie = 'longitude=' + position.coords.longitude
-
-            writeInformations(latitudeCookie, longitudeCookie)
+            writeInformations(position.coords.latitude, position.coords.longitude)
         })
     }
 }
